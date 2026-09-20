@@ -26,7 +26,7 @@ CHUNK_SIZE, CHUNK_OVERLAP = 800, 150
 PRESETS = [
     {"id": "payment_gateway", "name": "Payment gateway の障害", "description": "通常の肯定条件", "query": "Find postmortems about incidents that affected payment-gateway.", "ground_truth": ["PM-INC-2102", "PM-INC-2113", "PM-INC-2117"]},
     {"id": "billing_not_payment", "name": "Billing、ただし Payment ではない", "description": "同一領域の否定条件", "query": "Find postmortems about incidents that affected billing-engine but did not affect payment-gateway.", "ground_truth": ["PM-INC-2101", "PM-INC-2105", "PM-INC-2110", "PM-INC-2116", "PM-INC-2120"]},
-    {"id": "restart_warnings", "name": "再起動禁止の Runbook", "description": "否定形の運用指示", "query": "Find runbooks that explicitly warn against restarting all instances or restarting from scratch.", "ground_truth": ["RB-001", "RB-011"]},
+    {"id": "incident_date_range", "name": "2026年1〜3月に起きた障害", "description": "日付範囲での絞り込み", "query": "Find postmortems for incidents that occurred between 2026-01-01 and 2026-03-31.", "ground_truth": ["PM-INC-2113", "PM-INC-2114", "PM-INC-2115", "PM-INC-2116", "PM-INC-2117", "PM-INC-2118", "PM-INC-2119"]},
     {"id": "cross_team_responders", "name": "複数チームが対応した障害", "description": "文書内の複合判定", "query": "Find postmortems where responders came from more than one team.", "ground_truth": ["PM-INC-2101", "PM-INC-2102", "PM-INC-2103", "PM-INC-2105", "PM-INC-2109", "PM-INC-2111", "PM-INC-2113", "PM-INC-2114", "PM-INC-2115", "PM-INC-2116", "PM-INC-2117", "PM-INC-2118", "PM-INC-2120"]},
 ]
 
