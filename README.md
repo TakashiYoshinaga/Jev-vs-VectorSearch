@@ -19,7 +19,9 @@ python -m pip install -r requirements.txt
 
 ## APIキー
 
-配布物に含まれるテンプレートをコピーし、実キー用ファイルを作ります。
+JEV列を動かすにはTypeSafeのアカウントとAPIキーが必要です。お持ちでない場合は <https://typesafe.ai/> でアカウントを作成し、APIキーを発行してください。
+
+発行したら、配布物に含まれるテンプレートをコピーし、実キー用ファイルを作ります。
 
 ```powershell
 cd C:\GitHub\JevTest
@@ -29,6 +31,10 @@ Copy-Item .secrets/typesafe_api_key.example.txt .secrets/typesafe_api_key.txt
 作成した`.secrets/typesafe_api_key.txt`のコメント行を削除し、1行目にTypeSafe APIキー本体だけを貼り付けます。実キー用ファイルだけがgitignoreされます。
 
 キーがない場合もアプリは起動し、cosine検索は利用できます。JEV列だけが未設定表示になります。
+
+## 表示言語
+
+画面右上のボタンで日本語と英語を切り替えられます。選択はブラウザに保存され、次回以降も維持されます。検索クエリやCosine／JEVの列見出しなど、もともと英語の部分は切り替えの対象外です。
 
 ## 起動
 

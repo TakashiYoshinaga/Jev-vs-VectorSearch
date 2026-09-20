@@ -6,6 +6,9 @@ body { margin:0; background:radial-gradient(circle at 15% -20%,#15394a 0,transpa
 .eyebrow,.method-kicker { margin:0; color:var(--cyan); font:700 10px/1.2 ui-monospace,monospace; letter-spacing:.18em; }
 .hero h1 { font-size:clamp(24px,3.4vw,38px); line-height:1; margin:6px 0; }
 .hero h1 span { color:var(--muted); font-weight:300; }
+.hero-side { display:flex; gap:8px; align-items:center; }
+.lang-toggle { border:1px solid var(--line); border-radius:999px; background:transparent; color:var(--muted); padding:6px 13px; font:700 12px/1.2 inherit; cursor:pointer; }
+.lang-toggle:hover { color:var(--cyan); border-color:#2d5960; }
 .status-pill { border:1px solid var(--line); border-radius:999px; padding:6px 11px; color:var(--muted); }
 .status-pill.ready { color:var(--green); border-color:#285c49; }
 .status-pill.missing { color:var(--yellow); border-color:#665625; }

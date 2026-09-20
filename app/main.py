@@ -24,10 +24,10 @@ JEV_MODEL = os.getenv("JEV_MODEL", "jev-latest")
 CHUNK_SIZE, CHUNK_OVERLAP = 800, 150
 
 PRESETS = [
-    {"id": "payment_gateway", "name": "Payment gateway の障害", "description": "通常の肯定条件", "query": "Find postmortems about incidents that affected payment-gateway.", "ground_truth": ["PM-INC-2102", "PM-INC-2113", "PM-INC-2117"]},
-    {"id": "billing_not_payment", "name": "Billing、ただし Payment ではない", "description": "同一領域の否定条件", "query": "Find postmortems about incidents that affected billing-engine but did not affect payment-gateway.", "ground_truth": ["PM-INC-2101", "PM-INC-2105", "PM-INC-2110", "PM-INC-2116", "PM-INC-2120"]},
-    {"id": "incident_date_range", "name": "2026年1〜3月に起きた障害", "description": "日付範囲での絞り込み", "query": "Find postmortems for incidents that occurred between 2026-01-01 and 2026-03-31.", "ground_truth": ["PM-INC-2113", "PM-INC-2114", "PM-INC-2115", "PM-INC-2116", "PM-INC-2117", "PM-INC-2118", "PM-INC-2119"]},
-    {"id": "cross_team_responders", "name": "複数チームが対応した障害", "description": "文書内の複合判定", "query": "Find postmortems where responders came from more than one team.", "ground_truth": ["PM-INC-2101", "PM-INC-2102", "PM-INC-2103", "PM-INC-2105", "PM-INC-2109", "PM-INC-2111", "PM-INC-2113", "PM-INC-2114", "PM-INC-2115", "PM-INC-2116", "PM-INC-2117", "PM-INC-2118", "PM-INC-2120"]},
+    {"id": "payment_gateway", "name": "Payment gateway の障害", "name_en": "Payment gateway incidents", "description": "通常の肯定条件", "description_en": "A plain inclusion condition", "query": "Find postmortems about incidents that affected payment-gateway.", "ground_truth": ["PM-INC-2102", "PM-INC-2113", "PM-INC-2117"]},
+    {"id": "billing_not_payment", "name": "Billing、ただし Payment ではない", "name_en": "Billing, but not payment", "description": "同一領域の否定条件", "description_en": "An exclusion condition inside one domain", "query": "Find postmortems about incidents that affected billing-engine but did not affect payment-gateway.", "ground_truth": ["PM-INC-2101", "PM-INC-2105", "PM-INC-2110", "PM-INC-2116", "PM-INC-2120"]},
+    {"id": "incident_date_range", "name": "2026年1〜3月に起きた障害", "name_en": "Incidents in Q1 2026", "description": "日付範囲での絞り込み", "description_en": "Filtering by a date range", "query": "Find postmortems for incidents that occurred between 2026-01-01 and 2026-03-31.", "ground_truth": ["PM-INC-2113", "PM-INC-2114", "PM-INC-2115", "PM-INC-2116", "PM-INC-2117", "PM-INC-2118", "PM-INC-2119"]},
+    {"id": "cross_team_responders", "name": "複数チームが対応した障害", "name_en": "Incidents handled by several teams", "description": "文書内の複合判定", "description_en": "A compound judgment inside the document", "query": "Find postmortems where responders came from more than one team.", "ground_truth": ["PM-INC-2101", "PM-INC-2102", "PM-INC-2103", "PM-INC-2105", "PM-INC-2109", "PM-INC-2111", "PM-INC-2113", "PM-INC-2114", "PM-INC-2115", "PM-INC-2116", "PM-INC-2117", "PM-INC-2118", "PM-INC-2120"]},
 ]
 
 
@@ -160,7 +160,7 @@ async def stream(body: SearchBody, request: Request) -> AsyncIterator[bytes]:
 
     key = api_key()
     if not key:
-        yield line({"event": "error", "scope": "jev", "message": "TypeSafe APIキーが未設定です。cosine結果のみ表示します。"})
+        yield line({"event": "error", "scope": "jev", "message": "TypeSafe APIキーが未設定です。cosine結果のみ表示します。", "message_en": "No TypeSafe API key is configured. Showing cosine results only."})
         yield line({"event": "complete", "cosine_ms": cosine_ms, "jev_ms": None, "total_ms": round((time.perf_counter() - started) * 1000), "jev_errors": len(engine.documents)})
         return
 
@@ -191,7 +191,7 @@ async def stream(body: SearchBody, request: Request) -> AsyncIterator[bytes]:
                 completed += 1
                 if result is None:
                     errors += 1
-                    yield line({"event": "error", "scope": "document", "doc_id": document["doc_id"], "message": f"JEV判定に失敗しました ({error_name})"})
+                    yield line({"event": "error", "scope": "document", "doc_id": document["doc_id"], "message": f"JEV判定に失敗しました ({error_name})", "message_en": f"JEV evaluation failed ({error_name})"})
                 else:
                     resolved_model = result["model"]
                     tokens_in += result["input_tokens"]
