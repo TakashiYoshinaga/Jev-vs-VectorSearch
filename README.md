@@ -9,13 +9,14 @@ with Precision, Recall and F1.
 
 ## Setup
 
-Run these in an Anaconda Prompt, or in any PowerShell where Conda is available.
-Every command below assumes the cloned project folder — the one holding this
-README — as the working directory. Replace `path\to\Jev-vs-VectorSearch` with
-wherever you put it, for example `C:\GitHub\Jev-vs-VectorSearch`.
+Run these in any shell where Conda is available — an Anaconda Prompt or
+PowerShell on Windows, Terminal on macOS or Linux. Every command below assumes
+the cloned project folder — the one holding this README — as the working
+directory. Replace `path/to/Jev-vs-VectorSearch` with wherever you put it, for
+example `C:/GitHub/Jev-vs-VectorSearch` or `~/GitHub/Jev-vs-VectorSearch`.
 
-```powershell
-cd path\to\Jev-vs-VectorSearch
+```shell
+cd path/to/Jev-vs-VectorSearch
 conda create -n jev-search-demo python=3.10
 conda activate jev-search-demo
 python -m pip install -r requirements.txt
@@ -31,10 +32,14 @@ create an account at <https://typesafe.ai/> and issue an API key there.
 
 Once you have the key, copy the bundled template to create the real key file.
 
-```powershell
-cd path\to\Jev-vs-VectorSearch
-Copy-Item .secrets/typesafe_api_key.example.txt .secrets/typesafe_api_key.txt
+```shell
+cd path/to/Jev-vs-VectorSearch
+cp .secrets/typesafe_api_key.example.txt .secrets/typesafe_api_key.txt
 ```
+
+In an Anaconda Prompt on Windows, use
+`copy .secrets\typesafe_api_key.example.txt .secrets\typesafe_api_key.txt`
+instead; PowerShell understands `cp`.
 
 Delete the comment lines in `.secrets/typesafe_api_key.txt` and paste the key
 itself on the first line. Only the real key file is gitignored.
@@ -51,8 +56,8 @@ headings — stay as they are.
 
 ## Running
 
-```powershell
-cd path\to\Jev-vs-VectorSearch
+```shell
+cd path/to/Jev-vs-VectorSearch
 conda activate jev-search-demo
 python -m uvicorn app.main:app --reload
 ```

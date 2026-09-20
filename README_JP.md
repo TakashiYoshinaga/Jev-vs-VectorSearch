@@ -6,10 +6,10 @@ NordWindの65文書を対象に、cosine類似検索とJEVの文書単位Noul判
 
 ## セットアップ
 
-Anaconda PromptまたはCondaを利用できるPowerShellで実行します。以降のコマンドはすべて、このREADMEがあるプロジェクトフォルダを作業ディレクトリとして実行してください。`path\to\Jev-vs-VectorSearch`は実際の配置先（例：`C:\GitHub\Jev-vs-VectorSearch`）に読み替えてください。
+Condaを利用できるシェルで実行します（WindowsならAnaconda PromptまたはPowerShell、macOS・LinuxならTerminal）。以降のコマンドはすべて、このREADMEがあるプロジェクトフォルダを作業ディレクトリとして実行してください。`path/to/Jev-vs-VectorSearch`は実際の配置先（例：`C:/GitHub/Jev-vs-VectorSearch`、`~/GitHub/Jev-vs-VectorSearch`）に読み替えてください。
 
-```powershell
-cd path\to\Jev-vs-VectorSearch
+```shell
+cd path/to/Jev-vs-VectorSearch
 conda create -n jev-search-demo python=3.10
 conda activate jev-search-demo
 python -m pip install -r requirements.txt
@@ -23,10 +23,12 @@ JEV列を動かすにはTypeSafeのアカウントとAPIキーが必要です。
 
 発行したら、配布物に含まれるテンプレートをコピーし、実キー用ファイルを作ります。
 
-```powershell
-cd path\to\Jev-vs-VectorSearch
-Copy-Item .secrets/typesafe_api_key.example.txt .secrets/typesafe_api_key.txt
+```shell
+cd path/to/Jev-vs-VectorSearch
+cp .secrets/typesafe_api_key.example.txt .secrets/typesafe_api_key.txt
 ```
+
+WindowsのAnaconda Promptでは代わりに`copy .secrets\typesafe_api_key.example.txt .secrets\typesafe_api_key.txt`を使ってください（PowerShellは`cp`で動きます）。
 
 作成した`.secrets/typesafe_api_key.txt`のコメント行を削除し、1行目にTypeSafe APIキー本体だけを貼り付けます。実キー用ファイルだけがgitignoreされます。
 
@@ -38,8 +40,8 @@ Copy-Item .secrets/typesafe_api_key.example.txt .secrets/typesafe_api_key.txt
 
 ## 起動
 
-```powershell
-cd path\to\Jev-vs-VectorSearch
+```shell
+cd path/to/Jev-vs-VectorSearch
 conda activate jev-search-demo
 python -m uvicorn app.main:app --reload
 ```
