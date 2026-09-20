@@ -10,17 +10,16 @@ with Precision, Recall and F1.
 ## Setup
 
 Run these in an Anaconda Prompt, or in any PowerShell where Conda is available.
-Every command below assumes the `JevTest` folder — the one holding this README —
-as the working directory.
+Every command below assumes the cloned project folder — the one holding this
+README — as the working directory. Replace `path\to\Jev-vs-VectorSearch` with
+wherever you put it, for example `C:\GitHub\Jev-vs-VectorSearch`.
 
 ```powershell
-cd C:\GitHub\JevTest
+cd path\to\Jev-vs-VectorSearch
 conda create -n jev-search-demo python=3.10
 conda activate jev-search-demo
 python -m pip install -r requirements.txt
 ```
-
-If the project sits somewhere else, change the `cd` path accordingly.
 
 To reuse an existing Python 3.10 environment, activate it and run
 `python -m pip install -r requirements.txt` there instead.
@@ -33,7 +32,7 @@ create an account at <https://typesafe.ai/> and issue an API key there.
 Once you have the key, copy the bundled template to create the real key file.
 
 ```powershell
-cd C:\GitHub\JevTest
+cd path\to\Jev-vs-VectorSearch
 Copy-Item .secrets/typesafe_api_key.example.txt .secrets/typesafe_api_key.txt
 ```
 
@@ -53,7 +52,7 @@ headings — stay as they are.
 ## Running
 
 ```powershell
-cd C:\GitHub\JevTest
+cd path\to\Jev-vs-VectorSearch
 conda activate jev-search-demo
 python -m uvicorn app.main:app --reload
 ```
