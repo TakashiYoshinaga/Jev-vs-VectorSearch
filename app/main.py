@@ -55,15 +55,6 @@ def excerpt(text: str, limit: int = 330) -> str:
     return text if len(text) <= limit else text[: limit - 1].rstrip() + "…"
 
 
-def metrics(scores: dict[str, float], threshold: float, truth: set[str]) -> dict[str, Any]:
-    hits = {doc_id for doc_id, score in scores.items() if score >= threshold}
-    tp, fp, fn = hits & truth, hits - truth, truth - hits
-    precision = len(tp) / len(hits) if hits else 0.0
-    recall = len(tp) / len(truth) if truth else 0.0
-    f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
-    return {"tp": sorted(tp), "fp": sorted(fp), "fn": sorted(fn), "precision": precision, "recall": recall, "f1": f1}
-
-
 class SearchBody(BaseModel):
     query: str = Field(min_length=1, max_length=2000)
     preset_id: str | None = None

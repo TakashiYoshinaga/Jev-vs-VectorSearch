@@ -1,6 +1,5 @@
-.secrets/
+.secrets/typesafe_api_key.txt
 .handoff/
 .cache/
 __pycache__/
 **/__pycache__/
-.pytest_cache/

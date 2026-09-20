@@ -16,7 +16,13 @@ python -m pip install -r requirements.txt
 
 ## APIキー
 
-`.secrets/typesafe_api_key.txt`を開き、コメント行を削除して、1行目にTypeSafe APIキー本体だけを貼り付けます。このフォルダはgitignoreされています。
+配布物に含まれるテンプレートをコピーし、実キー用ファイルを作ります。
+
+```powershell
+Copy-Item .secrets/typesafe_api_key.example.txt .secrets/typesafe_api_key.txt
+```
+
+作成した`.secrets/typesafe_api_key.txt`のコメント行を削除し、1行目にTypeSafe APIキー本体だけを貼り付けます。実キー用ファイルだけがgitignoreされます。
 
 キーがない場合もアプリは起動し、cosine検索は利用できます。JEV列だけが未設定表示になります。
 
@@ -36,13 +42,6 @@ python -m uvicorn app.main:app --reload
 4. 両列の閾値を動かし、カードと評価指標の変化を比較します。
 
 プリセットのクエリを編集すると自由入力扱いになり、ground truth評価は無効になります。JEVのNoulはYesの確率、cosineは幾何学的な類似度なので、数値そのものを直接比較するものではありません。
-
-## テスト
-
-```powershell
-python -m pip install -r requirements-dev.txt
-python -m pytest -q
-```
 
 ## データ
 

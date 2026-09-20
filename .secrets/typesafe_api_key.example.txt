@@ -1,0 +1,2 @@
+# このファイルを typesafe_api_key.txt という名前でコピーし、
+# 1行目にTypeSafe APIキー本体だけを貼り付けてください。
