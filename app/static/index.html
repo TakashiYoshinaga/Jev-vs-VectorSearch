@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JEV × Cosine Search Lab</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <div><p class="eyebrow">NORDWIND · RETRIEVAL LAB</p><h1>JEV <span>×</span> Cosine Search</h1><p>「似ている」と「条件を満たす」は、同じだろうか。</p></div>
+      <div id="apiStatus" class="status-pill">接続確認中</div>
+    </header>
+
+    <section class="control-panel">
+      <div class="field preset-field"><label for="preset">検索シナリオ</label><select id="preset"></select><p id="presetDescription" class="help"></p></div>
+      <div class="field query-field"><div class="label-row"><label for="query">Search query</label><button id="restoreQuery" class="text-button" hidden>プリセットへ戻す</button></div><textarea id="query" rows="2" spellcheck="false"></textarea></div>
+      <aside id="groundTruth" class="ground-truth"></aside>
+      <div class="run-row"><div class="field compact"><label for="concurrency">JEV同時実行</label><select id="concurrency"><option value="1">1件ずつ</option><option value="4">4件並列</option></select></div><p id="runHint" class="run-hint"></p><button id="metricsHelp" class="button ghost" type="button">？ 評価指標とは</button><button id="stop" class="button secondary" disabled>中止</button><button id="run" class="button primary">比較を実行</button></div>
+    </section>
+
+    <section class="comparison">
+      <article class="method cosine"><header class="method-header"><div><p class="method-kicker">GEOMETRIC SIMILARITY</p><h2>Cosine Search</h2></div><div class="count" id="cosCount">0 hits</div></header><div class="threshold"><label for="cosThreshold">類似度の閾値 <output id="cosThresholdValue">0.35</output></label><input id="cosThreshold" type="range" min="0" max="1" step="0.01" value="0.35"></div><div id="cosMetrics" class="metrics"></div><div id="cosResults" class="results"><div class="empty">検索結果がここに積み上がります</div></div><footer id="cosFooter" class="method-footer">待機中</footer></article>
+      <article class="method jev"><header class="method-header"><div><p class="method-kicker">CONDITION JUDGMENT</p><h2>JEV · Noul</h2></div><div class="count" id="jevCount">0 hits</div></header><div class="threshold"><label for="jevThreshold">Yes確率の閾値 <output id="jevThresholdValue">0.50</output></label><input id="jevThreshold" type="range" min="0" max="1" step="0.01" value="0.50"></div><div id="jevMetrics" class="metrics"></div><div id="jevResults" class="results"><div class="empty">JEVが文書を読むとカードが追加されます</div></div><footer id="jevFooter" class="method-footer">待機中</footer></article>
+    </section>
+    <p id="message" class="message" role="status"></p>
+  </main>
+  <dialog id="metricsDialog" class="metrics-dialog" aria-labelledby="metricsDialogTitle">
+    <div class="dialog-head"><div><p class="eyebrow">GROUND TRUTH METRICS</p><h2 id="metricsDialogTitle">評価指標の見方</h2></div><button id="closeMetrics" class="dialog-close" type="button" aria-label="閉じる">×</button></div>
+    <ol class="metric-guide">
+      <li><h3>Precision（適合率）</h3><p>ヒットした文書のうち、正解だった割合</p><code>TP ÷ (TP + FP)</code><p class="guide-note">高いほど「余計な文書を拾っていない」</p></li>
+      <li><h3>Recall（再現率）</h3><p>ground truthの正解文書を、どれだけ取りこぼさず見つけたか</p><code>TP ÷ (TP + FN)</code><p class="guide-note">高いほど「正解を見逃していない」</p></li>
+      <li><h3>F1</h3><p>PrecisionとRecallのバランスを表す総合点</p><code>2 × Precision × Recall ÷ (Precision + Recall)</code><p class="guide-note">両方が高くないと高得点にならない</p></li>
+    </ol>
+    <div class="term-guide"><span><b>TP</b> 正しくヒット</span><span><b>FP</b> 誤ってヒット</span><span><b>FN</b> 正解を見逃し</span></div>
+  </dialog>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

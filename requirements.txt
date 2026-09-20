@@ -1,0 +1,5 @@
+fastapi==0.141.1
+numpy==2.2.5
+sentence-transformers==5.7.0
+typesafe-sdk==0.7.0
+uvicorn==0.53.0
