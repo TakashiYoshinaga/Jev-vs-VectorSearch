@@ -1,10 +1,17 @@
 # JEV × Cosine Search Lab
 
-NordWindの65文書を対象に、cosine類似検索とJEVの文書単位Noul判定を比較するローカルデモです。プリセット検索ではground truthに対する正解・誤検出・見逃しと、Precision／Recall／F1を表示します。
+日本語版は [README_JP.md](README_JP.md) にあります。
 
-## セットアップ
+A local demo that compares cosine similarity retrieval with JEV's per-document
+Noul judgment over the same 65 NordWind documents. Preset searches show correct
+hits, false hits and missed documents against a fixed ground truth, together
+with Precision, Recall and F1.
 
-Anaconda PromptまたはCondaを利用できるPowerShellで実行します。以降のコマンドはすべて、このREADMEがある`JevTest`フォルダを作業ディレクトリとして実行してください。
+## Setup
+
+Run these in an Anaconda Prompt, or in any PowerShell where Conda is available.
+Every command below assumes the `JevTest` folder — the one holding this README —
+as the working directory.
 
 ```powershell
 cd C:\GitHub\JevTest
@@ -13,30 +20,37 @@ conda activate jev-search-demo
 python -m pip install -r requirements.txt
 ```
 
-配置先が異なる場合は`cd`のパスを実際のフォルダに読み替えてください。
+If the project sits somewhere else, change the `cd` path accordingly.
 
-既存のPython 3.10環境を使う場合は、その環境を有効にして`python -m pip install -r requirements.txt`を実行してください。
+To reuse an existing Python 3.10 environment, activate it and run
+`python -m pip install -r requirements.txt` there instead.
 
-## APIキー
+## API key
 
-JEV列を動かすにはTypeSafeのアカウントとAPIキーが必要です。お持ちでない場合は <https://typesafe.ai/> でアカウントを作成し、APIキーを発行してください。
+The JEV column needs a TypeSafe account and an API key. If you do not have one,
+create an account at <https://typesafe.ai/> and issue an API key there.
 
-発行したら、配布物に含まれるテンプレートをコピーし、実キー用ファイルを作ります。
+Once you have the key, copy the bundled template to create the real key file.
 
 ```powershell
 cd C:\GitHub\JevTest
 Copy-Item .secrets/typesafe_api_key.example.txt .secrets/typesafe_api_key.txt
 ```
 
-作成した`.secrets/typesafe_api_key.txt`のコメント行を削除し、1行目にTypeSafe APIキー本体だけを貼り付けます。実キー用ファイルだけがgitignoreされます。
+Delete the comment lines in `.secrets/typesafe_api_key.txt` and paste the key
+itself on the first line. Only the real key file is gitignored.
 
-キーがない場合もアプリは起動し、cosine検索は利用できます。JEV列だけが未設定表示になります。
+Without a key the app still starts and cosine search works; only the JEV column
+reports that the key is missing.
 
-## 表示言語
+## Interface language
 
-画面右上のボタンで日本語と英語を切り替えられます。選択はブラウザに保存され、次回以降も維持されます。検索クエリやCosine／JEVの列見出しなど、もともと英語の部分は切り替えの対象外です。
+The button in the top right switches the interface between Japanese and
+English. The choice is stored in the browser and survives a reload. Parts that
+are English to begin with — the search queries and the Cosine and JEV column
+headings — stay as they are.
 
-## 起動
+## Running
 
 ```powershell
 cd C:\GitHub\JevTest
@@ -44,17 +58,23 @@ conda activate jev-search-demo
 python -m uvicorn app.main:app --reload
 ```
 
-ブラウザで <http://127.0.0.1:8000> を開きます。初回のcosine検索では埋め込みモデルをダウンロードしてキャッシュを作るため、少し時間がかかります。
+Open <http://127.0.0.1:8000>. The first cosine search takes a moment because it
+downloads the embedding model and builds the cache.
 
-## 使い方
+## Using the app
 
-1. ground truth付きプリセット、または自由入力を選びます。
-2. JEVを1件ずつ読むか、4件並列にするか選びます。
-3. 「比較を実行」を押します。
-4. 両列の閾値を動かし、カードと評価指標の変化を比較します。
+1. Pick a preset with ground truth, or write your own query.
+2. Choose whether JEV reads one document at a time or four in parallel.
+3. Press Run.
+4. Move each column's threshold and watch the cards and metrics change.
 
-プリセットのクエリを編集すると自由入力扱いになり、ground truth評価は無効になります。JEVのNoulはYesの確率、cosineは幾何学的な類似度なので、数値そのものを直接比較するものではありません。
+Editing a preset query turns it into a custom query, which disables ground-truth
+evaluation. A JEV Noul score is the probability of "yes", while a cosine score
+is a geometric similarity, so the two numbers are not meant to be compared
+directly — only their outcomes against the ground truth are.
 
-## データ
+## Data
 
-`dataset/documents.jsonl`はデモを自己完結させるためにNordWind workshopからコピーしたスナップショットです。実行時に元のリポジトリを読み書きしません。
+`dataset/documents.jsonl` is a snapshot copied from the NordWind workshop so
+that this demo is self-contained. Nothing reads or writes the original
+repository at runtime.
